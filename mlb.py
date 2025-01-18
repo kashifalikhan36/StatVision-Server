@@ -4,12 +4,12 @@ import base64
 import json
 
 class MLBStata:
-    def __init__(self, video, text):
+    def __init__(self, video):
         self.video = video
-        self.text = text
+        # self.text = text
 
     def generate(self):
-        print(self.text)
+        # print(self.text)
         client = genai.Client(
             vertexai=True,
             project="gen-lang-client-0007077132",
