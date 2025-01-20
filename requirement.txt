@@ -1,3 +1,4 @@
 pandas
 numpy
 google-genai
+google-cloud-texttospeech
