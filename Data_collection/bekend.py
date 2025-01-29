@@ -5,6 +5,8 @@ from sklearn.preprocessing import LabelEncoder
 import joblib
 from google.cloud import texttospeech
 
+
+
 # Video input and MLBStata processing
 video = "https://sporty-clips.mlb.com/OTlCWmdfWGw0TUFRPT1fRDFKWlZGRUFVMUVBRHdRQkJBQUFBdzlSQUZsUlUxUUFCVkpYQXdjQkJncFVCbFFI.mp4"
 print("Jay Bruce homers")
