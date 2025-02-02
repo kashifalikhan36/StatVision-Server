@@ -9,20 +9,18 @@ class MLBStata:
         # self.text = text
         
     def generate_insights(self,exit_velocity, hit_distance, launch_angle, spray_angle, pitch_type, performance_score, ball_trajectory, predicted_outcome, home_run_fav,):
-        # Initialize the client
         client = genai.Client(
             vertexai=True,
             project="gen-lang-client-0007077132",
             location="us-central1"
         )
 
-        # Define video and text input
         video1 = types.Part.from_uri(
             file_uri=self.video,
             mime_type="video/*",
         )
 
-        text1 = types.Part.from_text(f"""
+        text1 = types.Part(text=f"""
             You will receive a set of MLB match statistics including:
 
             - Exit Velocity: {exit_velocity}
@@ -141,7 +139,7 @@ class MLBStata:
             file_uri=self.video,
             mime_type="video/*",
         )
-        text1 = types.Part.from_text("""
+        text1 = types.Part(text="""
             Examine the video to find occurrences of these metrics: 
             - Exit Velocity  
             - Hit Distance  
@@ -164,13 +162,14 @@ class MLBStata:
                             "Spray Angle": 25,
                             "Pitch Type": "Fastball"
                         },
-                        "timestamp": "00:20"
+                        "timestamp": "00:20",
+                        "player": "S. Imanaga"
                     }
                 ]
             }
             ```
-            Ensure timestamps are in **mm:ss** format.
 
+            Ensure timestamps are in **mm:ss** format.
             """)
 
         # Define the model and contents
@@ -178,10 +177,7 @@ class MLBStata:
         contents = [
             types.Content(
                 role="user",
-                parts=[
-                    video1,
-                    text1
-                ]
+                parts=[video1, text1]
             )
         ]
 
@@ -210,7 +206,7 @@ class MLBStata:
                 )
             ],
             response_mime_type="application/json",
-            response_schema = {
+            response_schema={
                 "type": "OBJECT",
                 "properties": {
                     "metrics": {
@@ -253,15 +249,19 @@ class MLBStata:
                                         "Spray Angle", 
                                         "Pitch Type"
                                     ]
+                                },
+                                "player": {
+                                    "type": "STRING",
+                                    "description": "Name of the player"
                                 }
                             },
-                            "required": ["timestamp", "metrics"]
+                            "required": ["timestamp", "metrics", "player"]
                         }
                     }
                 }
             }
-
         )
+
         i=0
         j=""
         # Generate content stream using the configured model and parameters

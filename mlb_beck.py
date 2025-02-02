@@ -4,6 +4,8 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 import joblib
 from google.cloud import texttospeech
+import json
+import os
 
 class VideoProcessor:
     def __init__(self, video_url):
@@ -64,6 +66,25 @@ class VideoProcessor:
         ball_trajectory = row['Ball Trajectory']
         predicted_outcome = row['Predicted Outcome']
         home_run_fav = int(row['Home Run Favorability'])
+
+        player_name = data['metrics'][0].get('player', 'Unknown Player')
+
+        statcast_dict = {
+            "Exit Velocity": exit_velocity,
+            "Hit Distance": hit_distance,
+            "Launch Angle": launch_angle,
+            "Spray Angle": spray_angle,
+            "Pitch Type": pitch_type,
+            "Performance Score": performance_score,
+            "Ball Trajectory": ball_trajectory,
+            "Predicted Outcome": predicted_outcome,
+            "Home Run Favorite": home_run_fav,
+            "Player": player_name
+        }
+        os.makedirs("temp", exist_ok=True)
+        json_path = os.path.join("temp", "statcast_data.json")
+        with open(json_path, "w") as json_file:
+            json.dump(statcast_dict, json_file, indent=4)
 
         pitch = self.mlbstuff.generate_insights(exit_velocity, hit_distance, launch_angle, spray_angle, pitch_type, performance_score, ball_trajectory, predicted_outcome, home_run_fav)
 
