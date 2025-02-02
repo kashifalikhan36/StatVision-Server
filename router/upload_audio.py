@@ -20,7 +20,7 @@ router = APIRouter(
 
 
 
-@router.get("/url-to-video/")
+@router.get("/generate-video/")
 async def mlb_video_generator():
     # video_url = text
     # video_processor = VideoProcessor(video_url)

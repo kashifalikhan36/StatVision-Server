@@ -33,7 +33,7 @@ class StatcastImageCreator:
         unit_font = ImageFont.truetype(self.font_regular_path, 30)
 
         draw.rectangle([(0, 0), (width, 100)], fill=(245, 245, 245))
-        draw.text((50, 20), "STATCAST", fill=(0, 0, 0), font=title_font)
+        draw.text((50, 20), "STATVISION", fill=(0, 0, 0), font=title_font)
         draw.text((50, 70), "Powered by Google Cloud", fill=(50, 50, 50), font=unit_font)
 
         draw.rectangle([(0, 120), (width, 180)], fill=(0, 38, 84))
