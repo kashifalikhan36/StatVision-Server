@@ -1,4 +1,4 @@
-# StatCast
+# StatVision
 
 StatCast is an AI-powered web app that provides MLB stats and generates videos from YouTube URLs. It fetches player data such as Exit Velocity, Hit Distance, and more, then generates a video based on the input, allowing playback and download options.
 
